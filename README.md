@@ -1,5 +1,35 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+
+- [ ] custom input
+- [ ] custom progress bar
+- [ ] custom checkbox
+- [ ] custom radio button
+- [ ] modal(light box)
+- [ ] carousel
+- [ ] marquee
+- [ ] collapse
+- [ ] expansion panels
+- [ ] dropdown list
+- [ ] context menu(right click trigger)
+- [ ] tabs
+- [ ] steppers
+- [ ] skeleton
+- [ ] drag and drop area
+- [ ] image preview (with drag drop)
+- [ ] transfer list (with drag drop)
+- [ ] draggable box
+- [ ] date picker (use dayjs)
+- [ ] toaster (status notification)
+- [ ] drawer (sidebar view)
+- [ ] auto complete (implement algorithm)
+- [ ] scroll to top
+- [ ] slider
+- [ ] copy to clipboard
+- [ ] tip
+- [ ] simple editor(contains html to rich text)
+
+
 ## Available Scripts
 
 In the project directory, you can run:
