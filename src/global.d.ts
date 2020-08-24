@@ -1,0 +1,1 @@
+declare type DestructFC<T> = T extends React.FC<infer G> ? G : never;
