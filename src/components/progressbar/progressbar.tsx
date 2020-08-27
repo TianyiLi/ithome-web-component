@@ -4,34 +4,47 @@ import { TweenLite } from 'gsap'
 const ProgressbarStyle = styled.div``
 export interface ProgressbarProps {
   max: number
-  start?: number
+  value: number
   onDone?: () => void
+  duration?: number
 }
-export interface ProgressbarRef {
-  setTo: (value: number) => void
-}
-export const Progressbar = React.forwardRef<ProgressbarRef, ProgressbarProps>(
-  (props, ref) => {
-    const [progress, setProgress] = useState(props.start || 0)
-    const [tweenValue, setTweenValue] = useState(props.start || 0)
-    const progressStatus = useMemo(() => {
-      return {
-        width: `calc(${(progress / 100) * 50}vw - 50%)`,
-        text: progress.toFixed(0),
+
+const obj = ({
+  value: 0,
+})
+
+export const Progressbar: React.FC<ProgressbarProps> = (props) => {
+  const [tweenValue, setTweenValue] = useState(props.value || 0)
+
+  const twn = useRef<TweenLite>()
+
+  const progressStatus = useMemo(() => {
+    return {
+      width: `calc(${(tweenValue / 100) * 50}vw - 50%)`,
+      text: tweenValue.toFixed(0),
+    }
+  }, [tweenValue])
+
+  useEffect(() => {
+    const value = props.max > props.value ? props.value : props.max
+    twn.current = TweenLite.to(obj, props.duration || 2, {
+      value: value,
+      roundProps: 'value',
+      onUpdate () {
+        setTweenValue(obj.value)
       }
-    }, [tweenValue])
+    })
+  }, [props.value])
 
-    useEffect(() => {
-      TweenLite.to(document.createElement('div'), 1, {
-        onUpdate: console.log
-      })
-    }, [progress])
+  useEffect(() => {
+    twn.current?.duration(props.duration || 1)
+  }, [props.duration])
 
-    useEffect(() => {
-      const _ref = ref as React.MutableRefObject<ProgressbarRef>
-      if (_ref) _ref.current.setTo = setProgress
-    }, [ref])
-
-    return <ProgressbarStyle></ProgressbarStyle>
-  }
-)
+  return (
+    <ProgressbarStyle>
+      <div className="progress-bar" style={{ width: progressStatus.width }}>
+        {progressStatus.text}
+      </div>
+    </ProgressbarStyle>
+  )
+}
